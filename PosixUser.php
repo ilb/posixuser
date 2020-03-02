@@ -32,5 +32,11 @@ class PosixUser implements User {
         }    
         return false;
     }
+    
+    public function enforce($groupName) {
+        if (!$this->hasPermission($groupName)) {
+            throw new Exception("Нет доступа пользователю: ".$this->remoteName, 453);
+        }
+    }
 }
 
