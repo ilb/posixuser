@@ -1,6 +1,8 @@
 <?php
 
-interface User {
+namespace User;
+
+interface LdapUser {
     /**
      * 
      * @param String $groupName

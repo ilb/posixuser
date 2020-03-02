@@ -1,6 +1,8 @@
 <?php
 
-class PosixUser implements User {
+namespace User;
+
+class PosixLdapUser implements LdapUser {
 
     /**
      *
@@ -9,12 +11,25 @@ class PosixUser implements User {
     private $remoteUser;
 
     /**
+     *
+     * @var PosixImpl
+     */
+    private $posix;
+    /**
      * 
-     * @param String $remoteName
+     * @param String $remoteUser
      * @return void
      */
     public function __construct($remoteUser) {
         $this->remoteUser = $remoteUser;
+    }
+    
+    /**
+     * 
+     * @param Posix $posix
+     */
+    public function setPosix($posix) {
+        $this->posix = $posix;
     }
 
     /**
@@ -23,7 +38,7 @@ class PosixUser implements User {
      * @return boolean
      */
     public function hasPermission($groupName) {
-        $groupInfo = Posix::getgrnam($groupName);
+        $groupInfo = $this->posix->getgrnam($groupName);
         if (!$groupInfo) {
             return false;
         }
@@ -41,7 +56,7 @@ class PosixUser implements User {
      */
     public function enforce($groupName) {
         if (!$this->hasPermission($groupName)) {
-            throw new Exception("Нет доступа пользователю: " . $this->remoteUser, 453);
+            throw new \Exception("Нет доступа пользователю: " . $this->remoteUser, 453);
         }
     }
 
