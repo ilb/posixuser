@@ -1,21 +1,22 @@
 <?php
 
 class PosixUser implements User {
+
     /**
      *
      * @var String
      */
     private $remoteUser;
-    
+
     /**
      * 
      * @param String $remoteName
      * @return void
      */
-    public function __construct($remoteName) {
-        $this->remoteName = $remoteName;
+    public function __construct($remoteUser) {
+        $this->remoteUser = $remoteUser;
     }
-    
+
     /**
      * 
      * @param type $groupName
@@ -28,14 +29,20 @@ class PosixUser implements User {
         }
         if (!in_array($this->remoteUser, $groupInfo['members'])) {
             return false;
-        }    
+        }
         return true;
     }
-    
+
+    /**
+     * 
+     * @param String $groupName
+     * @return void
+     * @throws Exception
+     */
     public function enforce($groupName) {
         if (!$this->hasPermission($groupName)) {
-            throw new Exception("Нет доступа пользователю: ".$this->remoteUser, 453);
+            throw new Exception("Нет доступа пользователю: " . $this->remoteUser, 453);
         }
     }
-}
 
+}
