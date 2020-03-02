@@ -35,4 +35,10 @@ class PosixLdapUserTest extends \PHPUnit_Framework_TestCase {
         $user->setPosix($this->posix);
         $user->enforce("");
     }
+    
+    public function testEmpty() {
+        $user = new \User\PosixLdapUser("Tom");
+        $user->setPosix($this->posix);
+        $this->assertEmpty($user->enforce(""));
+    }
 }
