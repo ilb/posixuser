@@ -1,8 +1,5 @@
 <?php
 
-require_once 'User.php';
-require_once 'Possix.php';
-
 class PosixUser implements User {
     /**
      *
@@ -25,16 +22,15 @@ class PosixUser implements User {
      * @return boolean
      */
     public function hasPermission($groupName) {
-        $posix = new Possix();
-        $groupInfo = $posix->getgrnam($groupName);
+        $groupInfo = Posix::getgrnam($groupName);
         if (!$groupInfo) {
-            return False;
+            return false;
         } else {
             if (in_array($groupInfo['members'], $this->remoteName)) {
-                return True;
+                return true;
             }
         }    
-        return FALSE;
+        return false;
     }
 }
 
