@@ -26,7 +26,7 @@ class PosixUser implements User {
         if (!$groupInfo) {
             return false;
         } else {
-            if (in_array($groupInfo['members'], $this->remoteName)) {
+            if (in_array($this->remoteName, $groupInfo['members'])) {
                 return true;
             }
         }    
