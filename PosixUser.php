@@ -5,7 +5,7 @@ class PosixUser implements User {
      *
      * @var String
      */
-    private $remoteName;
+    private $remoteUser;
     
     /**
      * 
@@ -25,17 +25,16 @@ class PosixUser implements User {
         $groupInfo = Posix::getgrnam($groupName);
         if (!$groupInfo) {
             return false;
-        } else {
-            if (in_array($this->remoteName, $groupInfo['members'])) {
-                return true;
-            }
+        }
+        if (!in_array($this->remoteUser, $groupInfo['members'])) {
+            return false;
         }    
-        return false;
+        return true;
     }
     
     public function enforce($groupName) {
         if (!$this->hasPermission($groupName)) {
-            throw new Exception("Нет доступа пользователю: ".$this->remoteName, 453);
+            throw new Exception("Нет доступа пользователю: ".$this->remoteUser, 453);
         }
     }
 }

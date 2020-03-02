@@ -11,7 +11,8 @@ interface User {
     /**
      * 
      * @param String $groupName
-     * return void,Exception
+     * @return void
+     * @throws Exception
      */
     public function enforce($groupName);
 }
