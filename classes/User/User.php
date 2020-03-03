@@ -36,10 +36,10 @@ class User implements UserInterface {
      * @return boolean
      */
     public function hasPermission($level) {
-        if ($level > $this->securityLevel) {
-            return false;
+        if ($level <= $this->securityLevel) {
+            return true;
         }
-        return true;
+        return false;
     }
     
     /**
@@ -50,7 +50,7 @@ class User implements UserInterface {
      */
     public function enforce($level) {
         if (!$this->hasPermission($level)) {
-            throw new Exception("", 453);
+            throw new Exception("Нет доступа", 453);
         }
     }
     
@@ -71,13 +71,5 @@ class User implements UserInterface {
 
     function getRemoteUser() {
         return $this->remoteUser;
-    }
-
-    function setSecurityLevel(Integer $securityLevel) {
-        $this->securityLevel = $securityLevel;
-    }
-
-    function setRemoteUser(String $remoteUser) {
-        $this->remoteUser = $remoteUser;
     }
 }

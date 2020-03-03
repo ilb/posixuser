@@ -1,13 +1,11 @@
 <?php
 
-namespace Tests\LdapUser;
-
 class PosixLdapUserTest extends \PHPUnit_Framework_TestCase {
     
     protected $posix;
     
     public function setUp(){
-        $this->posix = new PosixImpl();
+        $this->posix = new \Tests\LdapUser\PosixImpl;
     }
 
     public function testSuccess() {

@@ -1,0 +1,46 @@
+@startuml
+namespace User #DDDDDD {
+    class User {
+        - securityLevel
+        - remoteUser
+        + hasPermission(level)
+        + enforce(level)
+        + checkAuth()
+
+    }
+    interface UserInterface {
+        + hasPermission(level)
+        + enforce(level)
+        + checkAuth()
+    }
+
+    User --> UserInterface
+}
+
+namespace LdapUser {
+    interface LdapUser {
+        + hasPermission(groupName)
+        + enforce(groupName)
+    }
+
+    interface Posix {
+        + getgrnam(groupName)
+    }
+
+    class PosixImpl {
+        +getgrnam(groupName)
+    }
+    
+    class PosixLdapUser {
+        - remoteUser
+        - posix
+        + hasPermission(groupName)
+        + enforce(groupName)
+        + setPosix(posix)
+    }
+
+    PosixImpl --> Posix
+    PosixLdapUser --> LdapUser
+    PosixLdapUser --> PosixImpl
+}
+@enduml
