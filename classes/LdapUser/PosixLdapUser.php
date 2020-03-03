@@ -1,7 +1,10 @@
 <?php
 
-namespace User;
+namespace LdapUser; 
 
+/**
+ * Проверка прав внутреннего пользователя ldap, с помощью posix групп
+ */
 class PosixLdapUser implements LdapUser {
 
     /**

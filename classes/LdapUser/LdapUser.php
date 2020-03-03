@@ -1,6 +1,6 @@
 <?php
 
-namespace User;
+namespace LdapUser;
 
 interface LdapUser {
     /**
