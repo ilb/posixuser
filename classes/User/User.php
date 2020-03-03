@@ -50,7 +50,7 @@ class User implements UserInterface {
      */
     public function enforce($level) {
         if (!$this->hasPermission($level)) {
-            throw new Exception("Нет доступа", 453);
+            throw new \Exception("Нет доступа", 453);
         }
     }
     

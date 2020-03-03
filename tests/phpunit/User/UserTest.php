@@ -9,24 +9,19 @@ class UserTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($user1->hasPermission(10));
     }
     
-    /**
-     * @expectedException Exception 
-     * @expectedExceptionCode 452
-     */
-    public function testException() {
-        $user = new \User\User(10, "U");
-        $user->enforce(11);
+    public function testAuthorization() {
+       /**
+        * Доделать
+        */
     }
     
     /**
-     * @runInSeparateProcess
+     * @expectedException Exception 
+     * @expectedExceptionCode 453
      */
-    public function testAuthq() {
+    public function testException() {
         $user = new \User\User(10, "U");
-        $user->checkAuth();
-        $this->assertContains(
-          'Location: /auth.php', xdebug_get_headers()
-        );
+        $user->enforce(25);
     }
     
 }
