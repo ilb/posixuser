@@ -28,6 +28,21 @@ class User implements UserInterface {
         $this->securityLevel = $securityLevel;
         $this->remoteUser = $remoteUser;
     }
+    /**
+     * 
+     * @return Integer
+     */
+    public function getSecurityLevel() {
+        return $this->securityLevel;
+    }
+
+    /**
+     * 
+     * @return String
+     */
+    public function getRemoteUser() {
+        return $this->remoteUser;
+    }
 
 
     /**
@@ -63,13 +78,5 @@ class User implements UserInterface {
             header("Location: /auth.php");
             exit();
         }
-    }
-    
-    function getSecurityLevel() {
-        return $this->securityLevel;
-    }
-
-    function getRemoteUser() {
-        return $this->remoteUser;
     }
 }
