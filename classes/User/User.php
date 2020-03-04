@@ -61,7 +61,6 @@ class User implements UserInterface {
     public function checkAuth() {
         if (!$this->hasPermission(40)) {
             header("Location: /auth.php");
-            exit();
         }
     }
     

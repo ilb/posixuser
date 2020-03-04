@@ -2,19 +2,45 @@
 
 class UserTest extends \PHPUnit_Framework_TestCase {
     
-    public function testAccess() {
-        $user = new \User\User(10, "U");
-        $this->assertTrue($user->hasPermission(9));
-        $user1 = new \User\User(10, "U");
-        $this->assertTrue($user1->hasPermission(10));
+    /**
+     * @dataProvider providerAccess
+     */
+    public function testAccess($securityLevel, $remoteUser, $level) {
+        $user = new \User\User($securityLevel, $remoteUser);
+        $this->assertTrue($user->hasPermission($level));
     }
     
+    public function providerAccess() {
+        return array(
+            [10, "Name", 9],
+            [50, "sd", 50],
+            [10, "Ad", 0]
+        );
+    }
+    /**
+     * @runInSeparateProcess
+     */
     public function testAuthorization() {
-       /**
-        * Доделать
-        */
+        $user = new \User\User(10, "User");
+        $user->checkAuth();
+        $this->assertContains(
+          'Location: /auth.php', xdebug_get_headers()
+        );
+    }
+    /**
+     * @dataProvider providerAuth
+     */
+    public function testAuthorizationSuccess($securityLevel, $remoteUser) {
+        $user = new \User\User($securityLevel, $remoteUser);
+        $this->assertEmpty($user->checkAuth());
     }
     
+    public function providerAuth() {
+        return array(
+            [50, "Name"],
+            [40, "Name"]
+        );
+    }
     /**
      * @expectedException Exception 
      * @expectedExceptionCode 453
