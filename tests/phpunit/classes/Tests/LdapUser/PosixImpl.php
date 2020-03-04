@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\User;
+namespace Tests\LdapUser;
 
-class PosixImpl implements \User\Posix {
+class PosixImpl implements \LdapUser\Posix {
     
     /**
      * @return array
