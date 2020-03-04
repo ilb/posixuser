@@ -17,16 +17,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
             [10, "Ad", 0]
         );
     }
-    /**
-     * @runInSeparateProcess
-     */
-    public function testAuthorization() {
-        $user = new \User\User(10, "User");
-        $user->checkAuth();
-        $this->assertContains(
-          'Location: /auth.php', xdebug_get_headers()
-        );
-    }
+    
     /**
      * @dataProvider providerAuth
      */
